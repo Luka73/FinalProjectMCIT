@@ -9,10 +9,4 @@ class FinalProjectApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
-	@Test
-	void createMovie() {
-
-	}
-
 }
