@@ -19,8 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.junit.Assert.assertEquals;
 
-
-@RunWith(SpringRunner.class)
 @WebMvcTest(value = MovieController.class)
 public class MovieControllerTest {
 
@@ -30,11 +28,12 @@ public class MovieControllerTest {
     @MockBean
     private MovieService movieService;
 
-    Movie mockMovie = new Movie("Titanic");
-    String movieJson = "{\"name\":\"Titanic\"}";
-
     @Test
     void createMovie() throws Exception {
+
+        Movie mockMovie = new Movie("Titanic");
+        String movieJson = "{\"name\":\"Titanic\"}";
+
         Mockito.when(movieService.save(new Movie(Mockito.anyString())))
                 .thenReturn(mockMovie);
 
@@ -44,9 +43,30 @@ public class MovieControllerTest {
                 .contentType(MediaType.APPLICATION_JSON);
 
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
         MockHttpServletResponse response = result.getResponse();
 
         assertEquals(HttpStatus.CREATED.value(), response.getStatus());
     }
+
+    @Test
+    void updateMovie() throws Exception {
+
+        Movie mockMovie = new Movie("Titanic");
+        String movieJson = "{\"id\":1,\"name\":\"Titanic\"}";
+
+        Mockito.when(movieService.update(new Movie(Mockito.anyString())))
+                .thenReturn(mockMovie);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .put("/movies")
+                .accept(MediaType.APPLICATION_JSON).content(movieJson)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = result.getResponse();
+
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
+    }
+
+
 }
