@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 public class MovieController {
@@ -42,6 +43,13 @@ public class MovieController {
         Movie movie = movieService.findById(id);
         if(movie == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(movie, HttpStatus.OK);
+    }
+
+    @GetMapping("movies/{category}")
+    public ResponseEntity<Collection<Movie>> readAll(@PathVariable String category) {
+        Collection<Movie> movies = movieService.findAll(category);
+        if(movies == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(movies, HttpStatus.OK);
     }
 
     @DeleteMapping("movie/{id}")

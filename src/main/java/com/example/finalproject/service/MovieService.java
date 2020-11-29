@@ -24,6 +24,8 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
+    public Collection<Movie> findAll(String category) { return movieRepository.findAll(category); }
+
     public Movie findById(int id) {
         return movieRepository.findById(id).orElse(null);
     }
