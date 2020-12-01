@@ -13,6 +13,7 @@ public class Movie {
     private String name;
     private double price;
     private String category;
+    private String trailer;
 
     public Movie() {
     }
@@ -57,6 +58,14 @@ public class Movie {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getTrailer() {
+        return trailer;
+    }
+
+    public void setTrailer(String trailer) {
+        this.trailer = trailer;
     }
 
     @Override
